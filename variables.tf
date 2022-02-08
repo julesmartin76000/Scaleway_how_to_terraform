@@ -1,3 +1,4 @@
+#General
 variable "zone" {
   type = string
 }
@@ -7,5 +8,27 @@ variable "region" {
 }
 
 variable "env" {
+  type = string
+}
+
+
+#Kapsule
+variable "kapsule_cluster_version" {
+  type = string
+}
+
+variable "kapsule_pool_size" {
+  type = number
+}
+
+variable "kapsule_pool_min_size" {
+  type = number
+}
+
+variable "kapsule_pool_max_size" {
+  type = number
+}
+
+variable "kapsule_pool_node_type" {
   type = string
 }
