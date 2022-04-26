@@ -1,41 +1,3 @@
-#General
-variable "zone" {
-  type = string
-}
-
-variable "region" {
-  type = string
-}
-
-variable "env" {
-  type = string
-}
-
-/*
-#Kapsule
-variable "kapsule_cluster_version" {
-  type = string
-}
-
-variable "kapsule_pool_size" {
-  type = number
-}
-
-variable "kapsule_pool_min_size" {
-  type = number
-}
-
-variable "kapsule_pool_max_size" {
-  type = number
-}
-
-variable "kapsule_pool_node_type" {
-  type = string
-}
-*/
-
-/*
-#Database
 variable "rdb_is_ha_cluster" {
   type = bool
 }
@@ -67,4 +29,7 @@ variable "rdb_user_scaleway_db_password" {
 variable "rdb_instance_volume_type" {
   type = string
 }
-*/
+
+variable "instance_ip_addr" {
+  type = string
+}

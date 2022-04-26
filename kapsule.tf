@@ -1,3 +1,4 @@
+/*
 resource "scaleway_k8s_cluster" "kapsule" {
   name        = "kapsule-${var.env}"
   description = "${var.env} cluster"
@@ -32,3 +33,4 @@ resource "scaleway_k8s_pool" "default" {
   min_size    = var.kapsule_pool_min_size
   max_size    = var.kapsule_pool_max_size
 }
+*/

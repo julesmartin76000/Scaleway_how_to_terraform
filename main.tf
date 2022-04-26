@@ -1,22 +1,18 @@
-resource "scaleway_instance_ip" "public_ip" {}
+module "instance" {
+  source = "./module/instance"
 
-resource "scaleway_instance_volume" "scw-instance" {
-  size_in_gb = 30
-  type       = "l_ssd"
+  #name  = var.domain
 }
 
-resource "scaleway_instance_server" "scw-instance" {
-  type  = "DEV1-L"
-  image = "ubuntu_focal"
+module "database" {
+  source = "./module/database"
 
-  tags = ["terraform instance", "scw-instance"]
-
-  ip_id = scaleway_instance_ip.public_ip.id
-
-  additional_volume_ids = [scaleway_instance_volume.scw-instance.id]
-
-  root_volume {
-    # The local storage of a DEV1-L instance is 80 GB, subtract 30 GB from the additional l_ssd volume, then the root volume needs to be 50 GB.
-    size_in_gb = 50
-  }
+  #name  = var.domain
+  rdb_instance_node_type         = "db-gp-xs"
+  rdb_instance_engine            = "PostgreSQL-13"
+  rdb_is_ha_cluster              = true
+  rdb_disable_backup             = false
+  rdb_instance_volume_type       = "bssd"
+  rdb_instance_volume_size_in_gb = "50"
+  instance_ip_addr               = module.instance.instance_ip_addr
 }
