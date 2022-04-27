@@ -1,3 +1,15 @@
+variable "zone" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
+
+variable "env" {
+  type = string
+}
+
 variable "rdb_is_ha_cluster" {
   type = bool
 }

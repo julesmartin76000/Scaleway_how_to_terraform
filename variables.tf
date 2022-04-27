@@ -11,7 +11,6 @@ variable "env" {
   type = string
 }
 
-/*
 #Kapsule
 variable "kapsule_cluster_version" {
   type = string
@@ -32,7 +31,6 @@ variable "kapsule_pool_max_size" {
 variable "kapsule_pool_node_type" {
   type = string
 }
-*/
 
 /*
 #Database
