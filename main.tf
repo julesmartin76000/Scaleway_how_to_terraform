@@ -26,6 +26,7 @@ module "kapsule" {
   kapsule_pool_min_size   = 2
   kapsule_pool_max_size   = 4
   kapsule_pool_node_type  = "DEV1-M"
+  cni                     = "calico"
   zone                    = var.zone
   region                  = var.region
   env                     = var.env

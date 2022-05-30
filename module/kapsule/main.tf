@@ -3,7 +3,7 @@ resource "scaleway_k8s_cluster" "kapsule" {
   name        = "kapsule-${var.env}"
   description = "${var.env} cluster"
   version     = var.kapsule_cluster_version
-  cni         = "calico"
+  cni         = var.cni
   tags        = [var.env]
 
   autoscaler_config {
@@ -23,9 +23,9 @@ resource "scaleway_k8s_cluster" "kapsule" {
   }
 }
 
-resource "scaleway_k8s_pool" "default" {
+resource "scaleway_k8s_pool" "kapsule" {
   cluster_id  = scaleway_k8s_cluster.kapsule.id
-  name        = "default"
+  name        = "kapsule-${var.env}"
   node_type   = var.kapsule_pool_node_type
   size        = var.kapsule_pool_size
   autoscaling = true

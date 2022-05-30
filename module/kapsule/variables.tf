@@ -18,6 +18,10 @@ variable "kapsule_pool_node_type" {
   type = string
 }
 
+variable "cni" {
+  type = string
+}
+
 variable "zone" {
   type = string
 }
