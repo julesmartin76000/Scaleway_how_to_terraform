@@ -1,15 +1,14 @@
 module "instance" {
   source = "./module/instance"
-
-  #name  = var.domain
 }
 
+/*
 module "database" {
   source = "./module/database"
 
-  zone   = "fr-par-1"
-  region = "fr-par"
-  env    = "dev"
+  #zone   = "fr-par-1"
+  #region = "fr-par"
+  #env    = "dev"
 
   #name  = var.domain
   rdb_instance_node_type         = "db-gp-xs"
@@ -21,4 +20,17 @@ module "database" {
   rdb_user_root_password         = "testjuleS3&"
   rdb_user_scaleway_db_password  = "testjuleS3&"
   instance_ip_addr               = module.instance.instance_ip_addr
+}
+*/
+
+module "kapsule" {
+  source                  = "./module/kapsule"
+  kapsule_cluster_version = "1.22"
+  kapsule_pool_size       = 2
+  kapsule_pool_min_size   = 2
+  kapsule_pool_max_size   = 4
+  kapsule_pool_node_type  = "DEV1-M"
+  zone                    = var.zone
+  region                  = var.region
+  env                     = var.env
 }
