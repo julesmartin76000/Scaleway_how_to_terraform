@@ -6,10 +6,6 @@ module "instance" {
 module "database" {
   source = "./module/database"
 
-  #zone   = "fr-par-1"
-  #region = "fr-par"
-  #env    = "dev"
-
   #name  = var.domain
   rdb_instance_node_type         = "db-gp-xs"
   rdb_instance_engine            = "PostgreSQL-13"
