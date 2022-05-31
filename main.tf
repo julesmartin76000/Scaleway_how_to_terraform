@@ -1,8 +1,8 @@
+/*
 module "instance" {
   source = "./module/instance"
 }
 
-/*
 module "database" {
   source = "./module/database"
 
@@ -17,7 +17,7 @@ module "database" {
   rdb_user_scaleway_db_password  = "testjuleS3&"
   instance_ip_addr               = module.instance.instance_ip_addr
 }
-*/
+
 
 module "kapsule" {
   source                  = "./module/kapsule"
@@ -30,4 +30,15 @@ module "kapsule" {
   zone                    = var.zone
   region                  = var.region
   env                     = var.env
+}
+*/
+
+module "loadbalancer" {
+  source       = "./module/loadbalancer"
+  lb_size      = "LB-S"
+  inbound_port = "80"
+  forward_port = "80"
+  zone         = var.zone
+  region       = var.region
+  env          = var.env
 }
