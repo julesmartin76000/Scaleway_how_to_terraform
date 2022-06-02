@@ -1,7 +1,7 @@
 # Storing terraform state in the cloud
 terraform {
   backend "s3" {
-    bucket                      = "XXXXXXXXX"
+    bucket                      = "terraformstatejules1"
     key                         = "terraform.tfstate"
     region                      = "fr-par"
     endpoint                    = "https://s3.fr-par.scw.cloud"

@@ -1,22 +1,58 @@
-resource "scaleway_instance_ip" "public_ip" {}
 
-resource "scaleway_instance_volume" "scw-instance" {
-  size_in_gb = 30
-  type       = "l_ssd"
+module "instance" {
+  source             = "./module/instance"
+  private_network_id = module.vpc.private_network_id
+}
+/*
+module "database" {
+  source = "./module/database"
+
+  #name  = var.domain
+  rdb_instance_node_type         = "db-gp-xs"
+  rdb_instance_engine            = "PostgreSQL-13"
+  rdb_is_ha_cluster              = true
+  rdb_disable_backup             = false
+  rdb_instance_volume_type       = "bssd"
+  rdb_instance_volume_size_in_gb = "50"
+  rdb_user_root_password         = "testjuleS3&"
+  rdb_user_scaleway_db_password  = "testjuleS3&"
+  instance_ip_addr               = module.instance.instance_ip_addr
 }
 
-resource "scaleway_instance_server" "scw-instance" {
-  type  = "DEV1-L"
-  image = "ubuntu_focal"
 
-  tags = ["terraform instance", "scw-instance"]
+module "kapsule" {
+  source                  = "./module/kapsule"
 
-  ip_id = scaleway_instance_ip.public_ip.id
+  kapsule_cluster_version = "1.22"
+  kapsule_pool_size       = 2
+  kapsule_pool_min_size   = 2
+  kapsule_pool_max_size   = 4
+  kapsule_pool_node_type  = "DEV1-M"
+  cni                     = "calico"
+  zone                    = var.zone
+  region                  = var.region
+  env                     = var.env
+}
+*/
 
-  additional_volume_ids = [scaleway_instance_volume.scw-instance.id]
+module "loadbalancer" {
+  source = "./module/loadbalancer"
 
-  root_volume {
-    # The local storage of a DEV1-L instance is 80 GB, subtract 30 GB from the additional l_ssd volume, then the root volume needs to be 50 GB.
-    size_in_gb = 50
-  }
+  lb_size      = "LB-S"
+  inbound_port = "80"
+  forward_port = "80"
+  zone         = var.zone
+  region       = var.region
+  env          = var.env
+}
+
+module "vpc" {
+  source = "./module/vpc"
+
+  public_gateway_dhcp = "192.168.1.0/24"
+  public_gateway_type = "VPC-GW-S"
+  zone                = var.zone
+  region              = var.region
+  env                 = var.env
+
 }

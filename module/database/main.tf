@@ -1,4 +1,3 @@
-
 resource "scaleway_rdb_instance" "scaleway-rdb" {
   name              = "postgresql-${var.env}"
   node_type         = var.rdb_instance_node_type
@@ -26,8 +25,7 @@ resource "scaleway_rdb_user" "scaleway-rdb" {
 resource "scaleway_rdb_acl" "scaleway-rdb" {
   instance_id = scaleway_rdb_instance.scaleway-rdb.id
   acl_rules {
-    ip          = "${scaleway_instance_ip.public_ip.address}/32"
+    ip          = var.instance_ip_addr
     description = "SCW instance"
   }
 }
-
