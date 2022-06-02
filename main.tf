@@ -1,8 +1,9 @@
-/*
-module "instance" {
-  source = "./module/instance"
-}
 
+module "instance" {
+  source             = "./module/instance"
+  private_network_id = module.vpc.private_network_id
+}
+/*
 module "database" {
   source = "./module/database"
 
@@ -21,6 +22,7 @@ module "database" {
 
 module "kapsule" {
   source                  = "./module/kapsule"
+
   kapsule_cluster_version = "1.22"
   kapsule_pool_size       = 2
   kapsule_pool_min_size   = 2
@@ -34,11 +36,23 @@ module "kapsule" {
 */
 
 module "loadbalancer" {
-  source       = "./module/loadbalancer"
+  source = "./module/loadbalancer"
+
   lb_size      = "LB-S"
   inbound_port = "80"
   forward_port = "80"
   zone         = var.zone
   region       = var.region
   env          = var.env
+}
+
+module "vpc" {
+  source = "./module/vpc"
+
+  public_gateway_dhcp = "192.168.1.0/24"
+  public_gateway_type = "VPC-GW-S"
+  zone                = var.zone
+  region              = var.region
+  env                 = var.env
+
 }

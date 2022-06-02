@@ -1,10 +1,10 @@
 
 resource "scaleway_k8s_cluster" "kapsule" {
-  name        = "kapsule-${var.env}"
-  description = "${var.env} cluster"
-  version     = var.kapsule_cluster_version
-  cni         = var.cni
-  tags        = [var.env]
+  name = "kapsule-${var.env}"
+  #description = "${var.env} cluster"
+  version = var.kapsule_cluster_version
+  cni     = var.cni
+  tags    = [var.env]
 
   autoscaler_config {
     disable_scale_down              = false

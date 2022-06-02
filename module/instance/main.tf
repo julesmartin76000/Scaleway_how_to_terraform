@@ -19,4 +19,8 @@ resource "scaleway_instance_server" "scw-instance" {
     # The local storage of a DEV1-L instance is 80 GB, subtract 30 GB from the additional l_ssd volume, then the root volume needs to be 50 GB.
     size_in_gb = 50
   }
+
+  private_network {
+    pn_id = var.private_network_id
+  }
 }
